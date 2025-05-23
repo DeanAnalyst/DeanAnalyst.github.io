@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | Projects | {{ site.title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    {% seo %}
+</head>
+<body>
+    {% include header.html %}
+    <main class="container project-page fade-in">
+        <article>
+            <header class="project-header">
+                <h1>{{ page.title }}</h1>
+                {% if page.subtitle %}
+                    <p class="subtitle">{{ page.subtitle }}</p>
+                {% endif %}
+                {% if page.skills %}
+                <div class="skills-tags">
+                    <strong>Skills:</strong>
+                    {% for skill in page.skills %}
+                        <span>{{ skill }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </header>
+            {{ content }}
+        </article>
+    </main>
+    {% include footer.html %}
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+</html>

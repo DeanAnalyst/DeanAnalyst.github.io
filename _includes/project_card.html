@@ -1,0 +1,24 @@
+{% comment %}
+  Expects:
+  - project_item: The project document from the collection
+{% endcomment %}
+<div class="project-card">
+    {% if project_item.thumbnail %}
+    <a href="{{ project_item.url | relative_url }}">
+        <img src="{{ project_item.thumbnail | relative_url }}" alt="{{ project_item.title }} thumbnail" class="project-thumbnail">
+    </a>
+    {% endif %}
+    <div class="project-card-content">
+        <h3><a href="{{ project_item.url | relative_url }}">{{ project_item.title }}</a></h3>
+        <p class="project-excerpt">{{ project_item.excerpt | strip_html | truncatewords: 30 }}</p>
+        {% if project_item.skills %}
+        <div class="skills-tags-card">
+            {% for skill in project_item.skills limit:4 %}
+                <span>{{ skill }}</span>
+            {% endfor %}
+            {% if project_item.skills.size > 4 %}<span>...</span>{% endif %}
+        </div>
+        {% endif %}
+        <a href="{{ project_item.url | relative_url }}" class="btn-read-more">View Project →</a>
+    </div>
+</div>

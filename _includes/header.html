@@ -1,0 +1,14 @@
+<header class="site-header">
+    <div class="container header-flex">
+        <div class="logo">
+            <a href="{{ '/' | relative_url }}">{{ site.title | split: " | " | first }}</a>
+            <span class="tagline">{{ site.title | split: " | " | last }}</span>
+        </div>
+        <nav>
+            <a href="{{ '/' | relative_url }}">Home</a>
+            <a href="{{ '/about.html' | relative_url }}">About</a>
+            <a href="{{ '/projects.html' | relative_url }}">Projects</a>
+            <a href="{{ '/contact.html' | relative_url }}">Contact</a>
+        </nav>
+    </div>
+</header>

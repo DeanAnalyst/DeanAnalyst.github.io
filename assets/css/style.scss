@@ -1,0 +1,404 @@
+---
+# Front matter tells Jekyll to process this file
+---
+
+@use "sass:color"; // Import the sass:color module
+
+// Variables
+$primary-color: #007bff; // A nice blue
+$secondary-color: #343a40; // Dark grey
+$light-gray: #f8f9fa;
+$text-color: #333;
+$text-muted: #6c757d;
+$font-primary: 'Roboto', sans-serif;
+$font-secondary: 'Montserrat', sans-serif;
+$border-radius: 5px;
+$box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+// Reset and Base Styles
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: $font-primary;
+    line-height: 1.7;
+    color: $text-color;
+    background-color: #fff; // White background
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+main.container {
+    flex-grow: 1;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $font-secondary;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: $secondary-color;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: $primary-color;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    &:hover {
+        color: color.adjust($primary-color, $lightness: -10%);
+        text-decoration: underline;
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: $border-radius;
+}
+
+// Header
+.site-header {
+    background-color: #fff;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    .header-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo a {
+        font-family: $font-secondary;
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: $secondary-color;
+        text-decoration: none;
+    }
+    .logo .tagline {
+        font-size: 0.85rem;
+        color: $text-muted;
+        display: block;
+        margin-top: -5px;
+    }
+
+    nav a {
+        margin-left: 20px;
+        font-family: $font-secondary;
+        font-weight: 400;
+        color: $text-color;
+        &:hover {
+            color: $primary-color;
+            text-decoration: none;
+        }
+        &.active { // You can add 'active' class via JS or Jekyll logic
+            color: $primary-color;
+            font-weight: 600;
+        }
+    }
+}
+
+// Footer
+.site-footer {
+    background-color: $secondary-color;
+    color: $light-gray;
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 0.9rem;
+
+    a {
+        color: color.adjust($primary-color, $lightness: 20%);
+        &:hover {
+            color: #fff;
+        }
+    }
+    p {
+        margin-bottom: 0.5rem;
+    }
+}
+
+// Homepage Specific
+.hero-section {
+    text-align: center;
+    padding: 4rem 0;
+    background-color: $light-gray; // Or an image
+    border-bottom: 1px solid #eee;
+    h1 {
+        font-size: 3rem;
+        color: $secondary-color;
+    }
+    .hero-subtitle {
+        font-size: 1.2rem;
+        color: $text-muted;
+        max-width: 700px;
+        margin: 1rem auto 2rem;
+    }
+    .btn-primary {
+        display: inline-block;
+        background-color: $primary-color;
+        color: #fff;
+        padding: 12px 25px;
+        border-radius: $border-radius;
+        font-family: $font-secondary;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        &:hover {
+            background-color: color.adjust($primary-color, $lightness: -10%);
+            text-decoration: none;
+        }
+    }
+}
+
+.featured-projects-section {
+    padding: 3rem 0;
+    h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+}
+
+// Project Card (used on projects listing page and potentially homepage)
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.project-card {
+    background-color: #fff;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+    .project-thumbnail {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-bottom: 1px solid #eee;
+        border-radius: $border-radius $border-radius 0 0;
+    }
+
+    .project-card-content {
+        padding: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        h3 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            a {
+                color: $secondary-color;
+            }
+        }
+        .project-excerpt {
+            font-size: 0.95rem;
+            color: $text-muted;
+            flex-grow: 1;
+        }
+        .btn-read-more {
+            display: inline-block;
+            margin-top: 1rem;
+            color: $primary-color;
+            font-weight: 600;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+// Skills Tags (used on project cards and project pages)
+.skills-tags, .skills-tags-card {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    span {
+        display: inline-block;
+        background-color: color.adjust($primary-color, $lightness: 40%);
+        color: color.adjust($primary-color, $lightness: -10%);
+        padding: 3px 8px;
+        border-radius: $border-radius;
+        font-size: 0.8rem;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+}
+.skills-tags-card { margin-bottom: 0.5rem; } // Less bottom margin for cards
+
+// Project Page Specific
+.project-page {
+    article {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: $border-radius;
+        box-shadow: $box-shadow;
+        margin-bottom: 2rem;
+    }
+    .project-header {
+        border-bottom: 1px solid #eee;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        h1 { margin-bottom: 0.5rem; }
+        .subtitle {
+            font-size: 1.2rem;
+            color: $text-muted;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+        }
+    }
+    .project-meta { // For date, author etc. if you add later
+        font-size: 0.9rem;
+        color: $text-muted;
+        margin-bottom: 1.5rem;
+    }
+    img.project-main-image { // For a large image at the top of a project
+        margin-bottom: 2rem;
+        box-shadow: $box-shadow;
+    }
+}
+
+// Code Blocks Styling
+pre, code {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+    background-color: #f6f8fa; // GitHub-like background
+    border-radius: $border-radius;
+}
+pre {
+    padding: 16px;
+    overflow: auto;
+    line-height: 1.45;
+    border: 1px solid #eaecef;
+}
+code {
+    padding: .2em .4em;
+    margin: 0;
+}
+pre code { // Reset for code inside pre
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border: none;
+}
+
+// Contact Page
+.contact-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: $border-radius;
+        font-family: $font-primary;
+    }
+    textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+    button[type="submit"] {
+        display: inline-block;
+        background-color: $primary-color;
+        color: #fff;
+        padding: 12px 25px;
+        border: none;
+        border-radius: $border-radius;
+        font-family: $font-secondary;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        &:hover {
+            background-color: color.adjust($primary-color, $lightness: -10%);
+        }
+    }
+}
+.contact-info {
+    text-align: center;
+    margin-bottom: 2rem;
+    p { margin-bottom: 0.5rem; }
+}
+
+
+// Animations
+.fade-in {
+    animation: fadeInAnimation 0.7s ease-in-out;
+}
+@keyframes fadeInAnimation {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .site-header {
+        position: static; // Or adjust for mobile sticky
+        .header-flex {
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            a {
+                margin: 5px 10px;
+            }
+        }
+    }
+    .hero-section h1 { font-size: 2.5rem; }
+    .hero-section .hero-subtitle { font-size: 1rem; }
+
+    .project-grid {
+        grid-template-columns: 1fr; // Stack cards on mobile
+    }
+}

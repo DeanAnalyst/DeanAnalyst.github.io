@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Mould Detection & Risk Analytics | Projects | Dean Bonsu | Data & BI Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Automated Mould Detection &amp; Risk Analytics | Dean Bonsu Data &amp; BI Developer</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Automated Mould Detection &amp; Risk Analytics" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A portfolio showcasing expertise in SQL, Python, and Power BI for transforming complex data into actionable insights and impactful visualizations." />
+<meta property="og:description" content="A portfolio showcasing expertise in SQL, Python, and Power BI for transforming complex data into actionable insights and impactful visualizations." />
+<link rel="canonical" href="http://localhost:4000/projects/mould-detection.html" />
+<meta property="og:url" content="http://localhost:4000/projects/mould-detection.html" />
+<meta property="og:site_name" content="Dean Bonsu Data &amp; BI Developer" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-06-01T00:00:00+01:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Automated Mould Detection &amp; Risk Analytics" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-06-01T00:00:00+01:00","datePublished":"2023-06-01T00:00:00+01:00","description":"A portfolio showcasing expertise in SQL, Python, and Power BI for transforming complex data into actionable insights and impactful visualizations.","headline":"Automated Mould Detection &amp; Risk Analytics","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/projects/mould-detection.html"},"url":"http://localhost:4000/projects/mould-detection.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+<body>
+    <header class="site-header">
+    <div class="container header-flex">
+        <div class="logo">
+            <a href="/">Dean Bonsu</a>
+            <span class="tagline">Data & BI Developer</span>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <a href="/projects.html">Projects</a>
+            <a href="/contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+    <main class="container project-page fade-in">
+        <article>
+            <header class="project-header">
+                <h1>Automated Mould Detection & Risk Analytics</h1>
+                
+                    <p class="subtitle">Leveraging Deep Learning, SQL, and BI for Proactive Social Housing Management</p>
+                
+                
+                <div class="skills-tags">
+                    <strong>Skills:</strong>
+                    
+                        <span>Python</span>
+                    
+                        <span>TensorFlow</span>
+                    
+                        <span>Keras</span>
+                    
+                        <span>CNNs</span>
+                    
+                        <span>SQL (Conceptual)</span>
+                    
+                        <span>Power BI (Conceptual)</span>
+                    
+                        <span>Data Visualization</span>
+                    
+                        <span>Machine Learning</span>
+                    
+                        <span>ETL (Conceptual)</span>
+                    
+                </div>
+                
+            </header>
+            <!-- Main image for the project page (optional) -->
+<!-- <img src="/assets/images/mould_project/mould_hero_image.jpg" alt="Mould Detection Project Overview" class="project-main-image"> -->
+
+<p>This project, originating from my MSc dissertation, addresses the critical issue of damp and mould in residential properties by developing an automated detection system. The goal is to enable proactive maintenance in the social housing sector, improving tenant well-being and operational efficiency.</p>
+
+<h2 id="the-challenge">The Challenge</h2>
+
+<p>Damp and mould are significant concerns in housing, posing health risks and leading to costly repairs if not addressed promptly. Manual inspection of thousands of property images is inefficient and slow. The challenge was to build a machine learning model capable of accurately identifying mould in images, forming the core of a larger data-driven solution.</p>
+
+<ul>
+  <li><strong>Context:</strong> Impact on tenant health (referencing BBC, 2022), operational burden on housing providers.</li>
+  <li><strong>Problem:</strong> Need for faster, scalable, and proactive mould identification.</li>
+</ul>
+
+<h2 id="my-solution-an-end-to-end-framework">My Solution: An End-to-End Framework</h2>
+
+<p>The solution encompasses image analysis using Deep Learning, data management via SQL, and insightful reporting through Power BI.</p>
+
+<h3 id="phase-1-data-acquisition--preparation-python">Phase 1: Data Acquisition &amp; Preparation (Python)</h3>
+
+<ul>
+  <li><strong>Dataset:</strong> My dissertation utilized a dataset of 7349 publicly sourced images (3681 with mould, 3668 clean). In a real-world scenario, this would be images from surveyor inspections.</li>
+  <li><strong>Augmentation:</strong> To improve model generalization and account for varying image quality, extensive data augmentation was performed using TensorFlow’s <code class="language-plaintext highlighter-rouge">ImageDataGenerator</code>:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># From your provided code
+</span><span class="n">train_datagen</span> <span class="o">=</span> <span class="nc">ImageDataGenerator</span><span class="p">(</span>
+    <span class="n">preprocessing_function</span><span class="o">=</span><span class="n">preprocess_input</span><span class="p">,</span> <span class="c1"># from VGG16
+</span>    <span class="n">rotation_range</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+    <span class="n">shear_range</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">zoom_range</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+    <span class="n">horizontal_flip</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">vertical_flip</span><span class="o">=</span><span class="bp">True</span>
+<span class="p">)</span>
+<span class="c1"># ... train_gen setup ...
+</span></code></pre></div>    </div>
+  </li>
+  <li><strong>Sample Images:</strong>
+    <ul>
+      <li>(Embed 1-2 sample ‘mould’ and ‘clean’ images here. Upload them to <code class="language-plaintext highlighter-rouge">assets/images/mould_project/</code> and link: <code class="language-plaintext highlighter-rouge">![Mould Sample](/assets/images/mould_project/mould_example.jpg)</code>)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="phase-2-model-development--training-python-tensorflowkeras">Phase 2: Model Development &amp; Training (Python, TensorFlow/Keras)</h3>
+
+<ul>
+  <li>
+    <p><strong>Core Model:</strong> A Convolutional Neural Network (CNN) based on the VGG-16 architecture, utilizing transfer learning with ImageNet weights. The top classification layers were replaced and fine-tuned for the mould detection task.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># From your provided code
+</span><span class="kn">from</span> <span class="n">keras.applications.vgg16</span> <span class="kn">import</span> <span class="n">VGG16</span>
+<span class="kn">from</span> <span class="n">keras.models</span> <span class="kn">import</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="n">keras.layers</span> <span class="kn">import</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Dropout</span>
+
+<span class="n">base_model</span> <span class="o">=</span> <span class="nc">VGG16</span><span class="p">(</span><span class="n">weights</span><span class="o">=</span><span class="sh">'</span><span class="s">imagenet</span><span class="sh">'</span><span class="p">,</span> <span class="n">include_top</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">base_model</span><span class="p">.</span><span class="n">layers</span><span class="p">:</span> <span class="c1"># Freeze base layers
+</span>    <span class="n">layer</span><span class="p">.</span><span class="n">trainable</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">base_model</span><span class="p">.</span><span class="n">output</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nc">Flatten</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nc">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="sh">'</span><span class="s">relu</span><span class="sh">'</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nc">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="nc">Dense</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="sh">'</span><span class="s">softmax</span><span class="sh">'</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># For categorical_crossentropy
+</span>
+<span class="n">model</span> <span class="o">=</span> <span class="nc">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">base_model</span><span class="p">.</span><span class="nb">input</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">predictions</span><span class="p">)</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="sh">'</span><span class="s">adam</span><span class="sh">'</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="sh">'</span><span class="s">categorical_crossentropy</span><span class="sh">'</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="sh">'</span><span class="s">accuracy</span><span class="sh">'</span><span class="p">])</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Training:</strong> The model was trained for 100 epochs, with callbacks for saving the best model.
+    <ul>
+      <li>(Embed your accuracy/loss curve images here: <code class="language-plaintext highlighter-rouge">![Accuracy Plot](/assets/images/mould_project/accuracy_plot.png)</code>)</li>
+      <li>(Embed your confusion matrix image here: <code class="language-plaintext highlighter-rouge">![Confusion Matrix](/assets/images/mould_project/confusion_matrix.png)</code>)</li>
+    </ul>
+  </li>
+  <li><strong>Key Result:</strong> Achieved approximately <strong>96-98% validation accuracy</strong> (confirm from your <code class="language-plaintext highlighter-rouge">history</code> object or saved plots), demonstrating strong predictive capability.</li>
+  <li><strong>Interpretability (CAM):</strong> Class Activation Maps (CAMs) were generated to visualize the image regions the model focused on, enhancing trust and understanding of its predictions.
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Conceptual CAM generation snippet
+# last_conv_layer = model.get_layer('block5_conv3')
+# cam_model = Model(model.input, last_conv_layer.output)
+# ... rest of CAM logic ...
+</span></code></pre></div>    </div>
+    <ul>
+      <li>(Embed an example CAM image: <code class="language-plaintext highlighter-rouge">![CAM Example](/assets/images/mould_project/cam_example.png)</code>)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="phase-3-data-storage--management-sql---conceptual-design">Phase 3: Data Storage &amp; Management (SQL - Conceptual Design)</h3>
+
+<p>To operationalize this, model predictions and associated metadata would be stored in a relational database (e.g., Oracle, PostgreSQL). This allows for querying, trend analysis, and integration with other business systems.</p>
+
+<ul>
+  <li><strong>Conceptual Schema:</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Properties</code> (PropertyID PK, Address, etc.)</li>
+      <li><code class="language-plaintext highlighter-rouge">Inspections</code> (InspectionID PK, PropertyID FK, Date)</li>
+      <li><code class="language-plaintext highlighter-rouge">Images</code> (ImageID PK, InspectionID FK, FilePath)</li>
+      <li><code class="language-plaintext highlighter-rouge">Mould_Predictions</code> (PredictionID PK, ImageID FK, Class, Confidence, Timestamp)</li>
+    </ul>
+  </li>
+  <li><strong>Example SQL Query:</strong>
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- Find properties with recent high-confidence mould detection</span>
+<span class="k">SELECT</span> <span class="n">p</span><span class="p">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">i</span><span class="p">.</span><span class="n">InspectionDate</span><span class="p">,</span> <span class="n">mp</span><span class="p">.</span><span class="n">ConfidenceScore</span>
+<span class="k">FROM</span> <span class="n">Properties</span> <span class="n">p</span>
+<span class="k">JOIN</span> <span class="n">Inspections</span> <span class="n">i</span> <span class="k">ON</span> <span class="n">p</span><span class="p">.</span><span class="n">PropertyID</span> <span class="o">=</span> <span class="n">i</span><span class="p">.</span><span class="n">PropertyID</span>
+<span class="k">JOIN</span> <span class="n">Images</span> <span class="n">img</span> <span class="k">ON</span> <span class="n">i</span><span class="p">.</span><span class="n">InspectionID</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">InspectionID</span>
+<span class="k">JOIN</span> <span class="n">Mould_Predictions</span> <span class="n">mp</span> <span class="k">ON</span> <span class="n">img</span><span class="p">.</span><span class="n">ImageID</span> <span class="o">=</span> <span class="n">mp</span><span class="p">.</span><span class="n">ImageID</span>
+<span class="k">WHERE</span> <span class="n">mp</span><span class="p">.</span><span class="n">PredictionClass</span> <span class="o">=</span> <span class="s1">'Mould'</span> <span class="k">AND</span> <span class="n">mp</span><span class="p">.</span><span class="n">ConfidenceScore</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">.</span><span class="mi">90</span>
+  <span class="k">AND</span> <span class="n">i</span><span class="p">.</span><span class="n">InspectionDate</span> <span class="o">&gt;</span> <span class="nb">DATE</span><span class="p">(</span><span class="s1">'now'</span><span class="p">,</span> <span class="s1">'-30 days'</span><span class="p">)</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">mp</span><span class="p">.</span><span class="n">ConfidenceScore</span> <span class="k">DESC</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="phase-4-visualization--reporting-power-bi---conceptual-design">Phase 4: Visualization &amp; Reporting (Power BI - Conceptual Design)</h3>
+
+<p>Data from the SQL database would feed interactive Power BI dashboards for housing managers, enabling:</p>
+
+<ul>
+  <li><strong>Risk Monitoring:</strong> KPIs on mould prevalence, high-risk properties, geographical hotspots (map visualization).</li>
+  <li><strong>Operational Insights:</strong> Tracking time from detection to remediation, effectiveness of interventions.</li>
+  <li><strong>Strategic Planning:</strong> Identifying trends, informing preventative maintenance strategies.</li>
+  <li><strong>Example DAX (Conceptual):</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">TotalHighRiskMouldProperties = CALCULATE(DISTINCTCOUNT(Properties[PropertyID]), Mould_Predictions[PredictionClass] = "Mould", Mould_Predictions[ConfidenceScore] &gt; 0.90)</code></li>
+    </ul>
+  </li>
+  <li><strong>Visual Concept:</strong>
+    <ul>
+      <li>(Embed a mockup image of the Power BI dashboard: <code class="language-plaintext highlighter-rouge">![Power BI Mockup](/assets/images/mould_project/powerbi_mockup.png)</code>). If no mockup, describe key visuals.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="outcomes--impact">Outcomes &amp; Impact</h2>
+
+<ul>
+  <li><strong>Proactive Maintenance:</strong> Shifts from reactive repairs to early, preventative interventions.</li>
+  <li><strong>Improved Tenant Well-being:</strong> Reduces health risks associated with mould.</li>
+  <li><strong>Cost Savings:</strong> Minimizes costs of extensive damage and long-term repairs.</li>
+  <li><strong>Efficient Resource Allocation:</strong> Directs survey and maintenance teams effectively.</li>
+  <li><strong>Data-Driven Decisions:</strong> Empowers housing providers with comprehensive insights for strategy and compliance.</li>
+</ul>
+
+<hr />
+
+<p style="margin-top: 2rem;">
+    
+        <a href="https://github.com/DeanAnalyst/mould-detection-cnn" class="btn-primary" target="_blank" rel="noopener noreferrer" style="margin-right:10px; background-color:#333;">View Code on GitHub »</a>
+    
+    <a href="/assets/docs/UP2091348_Dissertation.pdf" class="btn-primary" target="_blank" rel="noopener noreferrer" style="background-color:#555;">Read Full Dissertation (PDF) »</a>
+</p>
+
+        </article>
+    </main>
+    <footer class="site-footer">
+    <div class="container">
+        <p>© 2025 Dean Bonsu. All rights reserved.</p>
+        <p>
+            <a href="https://www.linkedin.com/in/dean-b-343752104" target="_blank" rel="noopener noreferrer">LinkedIn</a> |
+            <a href="https://github.com/DeanAnalyst" target="_blank" rel="noopener noreferrer">GitHub</a> |
+            <a href="mailto:bonsudeanfo@gmail.com">Email</a>
+        </p>
+    </div>
+</footer>
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>

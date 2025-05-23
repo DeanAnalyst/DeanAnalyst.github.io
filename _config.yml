@@ -1,0 +1,48 @@
+title: Dean Bonsu | Data & BI Developer
+email: bonsudeanfo@gmail.com
+description: >- # this means to ignore newlines until "baseurl:"
+  A portfolio showcasing expertise in SQL, Python, and Power BI for transforming
+  complex data into actionable insights and impactful visualizations.
+baseurl: "" # the subpath of your site, e.g. /blog. If hosted at the root, leave empty.
+url: "https://DeanAnalyst.github.io" # your site's domain
+github_username: DeanAnalyst # Replace
+linkedin_username: dean-b-343752104
+
+# Build settings
+markdown: kramdown
+theme: null # We are not using a pre-built theme
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Collections for projects
+collections:
+  projects_col: # Renamed from 'projects' to avoid conflict with 'projects.md' page
+    output: true
+    permalink: /projects/:path/
+
+# Defaults for pages and posts (if you add a blog later)
+defaults:
+  - scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "projects_col" # Target items in the 'projects_col' collection
+    values:
+      layout: "project" # Use the project.html layout for project pages
+
+# Exclude from processing.
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
