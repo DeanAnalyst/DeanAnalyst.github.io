@@ -94,18 +94,43 @@ The solution encompasses image analysis using Deep Learning, data management via
   model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
   ```
 
-- **Training:** The model was trained for 100 epochs, with callbacks for saving the best model.
-  - (Embed your accuracy/loss curve images here: `![Accuracy Plot](/assets/images/mould_project/accuracy_plot.png)`)
-  - (Embed your confusion matrix image here: `![Confusion Matrix](/assets/images/mould_project/confusion_matrix.png)`)
-- **Key Result:** Achieved approximately **96-98% validation accuracy** (confirm from your `history` object or saved plots), demonstrating strong predictive capability.
-- **Interpretability (CAM):** Class Activation Maps (CAMs) were generated to visualize the image regions the model focused on, enhancing trust and understanding of its predictions.
+* **Training & Evaluation:** The model was trained for 100 epochs using the Adam optimizer and categorical crossentropy loss. Callbacks were used to save the best performing model based on validation accuracy.
+  <div class="training-plots" style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 1rem; margin-bottom: 1.5rem; justify-content: space-around;">
+      <div class="plot-container" style="flex: 1; min-width: 300px; max-width: 450px; text-align: center;">
+          <h4 style="margin-bottom: 0.5rem;">Model Accuracy & Loss Curves</h4>
+          <img src="{{ '/assets/images/mould_project/accuracy_plot.png' | relative_url }}" alt="Model Training Accuracy and Loss Curves" style="width:100%; border:1px solid #ddd; border-radius: 5px;">
+          <p style="font-size:0.9em; color: #555; margin-top:5px;"><em>Accuracy and loss trends over training epochs for training and validation sets.</em></p>
+      </div>
+      <div class="plot-container" style="flex: 1; min-width: 300px; max-width: 400px; text-align: center;">
+          <h4 style="margin-bottom: 0.5rem;">Normalized Confusion Matrix</h4>
+          <img src="{{ '/assets/images/mould_project/confusion_matrix.png' | relative_url }}" alt="Normalized Confusion Matrix for Mould Detection" style="width:100%; border:1px solid #ddd; border-radius: 5px;">
+          <p style="font-size:0.9em; color: #555; margin-top:5px;"><em>Performance on the test set, showing true vs. predicted labels.</em></p>
+      </div>
+  </div>
+* **Key Result:** Achieved approximately **96-98% validation accuracy** , demonstrating strong predictive capability for distinguishing mould-affected areas from clean ones.
+* **Interpretability (Class Activation Maps - CAMs):** To understand what the model learned and to ensure it was focusing on relevant image features, Class Activation Maps were generated. These maps highlight the regions in an image that were most influential for the model's prediction.
   ```python
-  # Conceptual CAM generation snippet
-  # last_conv_layer = model.get_layer('block5_conv3')
-  # cam_model = Model(model.input, last_conv_layer.output)
-  # ... rest of CAM logic ...
+  # Conceptual CAM generation (key part from your code)
+  # last_conv_layer = model.get_layer('block5_conv3') # For VGG16
+  # new_model = Model(model.input, last_conv_layer.output)
+  # # ... logic to calculate weighted sum of feature maps ...
+  # cam = cv2.resize(cam, (224, 224))
+  # cam = np.maximum(cam, 0)
+  # cam /= cam.max()
   ```
-  - (Embed an example CAM image: `![CAM Example](/assets/images/mould_project/cam_example.png)`)
+  <p>Below are examples showing the CAM overlay on both a 'clean' image and a 'mould-affected' image. The warmer colors (red/yellow) indicate areas of higher importance for the model's decision.</p>
+  <div class="cam-examples" style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 1rem; margin-bottom: 1.5rem; justify-content: space-around;">
+      <div class="cam-container" style="flex: 1; min-width: 250px; max-width: 350px; text-align: center;">
+          <h4 style="margin-bottom: 0.5rem;">CAM on a Mould-Affected Image</h4>
+          <img src="{{ '/assets/images/mould_project/CAM_mould1.png' | relative_url }}" alt="Class Activation Map for Mouldy Image" style="width:100%; border:1px solid #ddd; border-radius: 5px;">
+          <p style="font-size:0.9em; color: #555; margin-top:5px;"><em>Model correctly focuses on the mouldy patches.</em></p>
+      </div>
+      <div class="cam-container" style="flex: 1; min-width: 250px; max-width: 350px; text-align: center;">
+          <h4 style="margin-bottom: 0.5rem;">CAM on a Clean Image</h4>
+          <img src="{{ '/assets/images/mould_project/CAM_clean1.png' | relative_url }}" alt="Class Activation Map for Clean Image" style="width:100%; border:1px solid #ddd; border-radius: 5px;">
+          <p style="font-size:0.9em; color: #555; margin-top:5px;"><em>For a clean image, the activation is typically more diffuse or focuses on textures that are not mould.</em></p>
+      </div>
+  </div>
 
 ### Phase 3: Data Storage & Management (SQL - Conceptual Design)
 
