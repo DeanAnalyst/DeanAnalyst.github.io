@@ -1,6 +1,6 @@
 source "https://rubygems.org" # This line was the issue. It should be 'source'
 
-gem "jekyll", "~> 4.4.1" # Or a recent stable version like "~> 4.3"
+gem "jekyll", "~> 4.3" # Or a recent stable version like "~> 4.3"
 gem "jekyll-feed", "~> 0.15.1"
 gem "jekyll-seo-tag", "~> 2.7" # Or "~> 2.8"
 
