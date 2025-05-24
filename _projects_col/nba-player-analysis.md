@@ -181,5 +181,5 @@ ORDER BY PTS DESC;
 
 <div class="scroll-reveal" style="margin-top: 2rem; text-align:center;">
     <a href="{{ page.github_repo_url }}" class="btn-primary" target="_blank" rel="noopener noreferrer" style="background-color:#333;">View Notebook & Code on GitHub »</a>
-    <a href="https://github.com/{{ site.github_username }}/nba-player-analysis/blob/main/notebooks/nba_analysis.html?raw=true" class="btn-primary" target="_blank" rel="noopener noreferrer" style="background-color:#555; margin-left:10px;">View HTML Notebook Preview »</a>
+    <a href="https://github.com/{{ site.github_username }}/nba-player-analysis/blob/main/notebooks/nba_analysis.html" class="btn-primary" target="_blank" rel="noopener noreferrer" style="background-color:#555; margin-left:10px;">View HTML Notebook Preview »</a>
 </div>
