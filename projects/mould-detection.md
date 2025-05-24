@@ -4,7 +4,7 @@ title: Automated Mould Detection & Risk Analytics
 subtitle: Leveraging Deep Learning, SQL, and BI for Proactive Social Housing Management
 date: 2023-06-01 # Date of project completion or dissertation
 featured: true # Set to true to show on homepage if using that logic
-thumbnail: /assets/images/mould_project/mould_thumbnail.jpg # Create this image!
+thumbnail: /assets/images/mould_project/mould_thumbnail.png # Create this image!
 skills:
   - Python
   - TensorFlow
