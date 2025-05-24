@@ -2,6 +2,8 @@
 # Front matter tells Jekyll to process this file
 ---
 
+// @use "sass:color"; // Use this if your Sass compiler supports modules (GitHub Pages default doesn't)
+
 // Variables
 $primary-color: #007bff; // A nice blue
 $secondary-color: #343a40; // Dark grey
@@ -18,6 +20,10 @@ $box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+html {
+    scroll-behavior: smooth; // For smooth internal links if you add them
 }
 
 body {
@@ -53,6 +59,8 @@ h1, h2, h3, h4, h5, h6 {
 h1 { font-size: 2.5rem; }
 h2 { font-size: 2rem; }
 h3 { font-size: 1.75rem; }
+h4 { font-size: 1.25rem; }
+
 
 p {
     margin-bottom: 1rem;
@@ -63,7 +71,8 @@ a {
     text-decoration: none;
     transition: color 0.3s ease;
     &:hover {
-        color: darken($primary-color, 10%); // REVERTED
+        // color: color.adjust($primary-color, $lightness: -10%); // New Sass module syntax
+        color: darken($primary-color, 10%); // Old syntax for GitHub Pages compatibility
         text-decoration: underline;
     }
 }
@@ -72,6 +81,14 @@ img {
     max-width: 100%;
     height: auto;
     border-radius: $border-radius;
+}
+
+ul, ol {
+    margin-left: 20px;
+    margin-bottom: 1rem;
+    ul, ol {
+        margin-bottom: 0; // Reset for nested lists
+    }
 }
 
 // Header
@@ -109,13 +126,19 @@ img {
         font-family: $font-secondary;
         font-weight: 400;
         color: $text-color;
+        padding-bottom: 5px; // Space for potential border
+        border-bottom: 2px solid transparent; // For active state
+        transition: color 0.3s ease, border-bottom-color 0.3s ease;
+
         &:hover {
             color: $primary-color;
             text-decoration: none;
+            border-bottom-color: lighten($primary-color, 25%);
         }
-        &.active { // You can add 'active' class via JS or Jekyll logic
+        &.active {
             color: $primary-color;
             font-weight: 600;
+            border-bottom-color: $primary-color;
         }
     }
 }
@@ -129,7 +152,8 @@ img {
     font-size: 0.9rem;
 
     a {
-        color: lighten($primary-color, 20%); // REVERTED
+        // color: color.adjust($primary-color, $lightness: 20%); // New Sass module syntax
+        color: lighten($primary-color, 20%); // Old syntax for GitHub Pages compatibility
         &:hover {
             color: #fff;
         }
@@ -143,7 +167,7 @@ img {
 .hero-section {
     text-align: center;
     padding: 4rem 0;
-    background-color: $light-gray; // Or an image
+    background-color: $light-gray;
     border-bottom: 1px solid #eee;
     h1 {
         font-size: 3rem;
@@ -158,16 +182,19 @@ img {
     .btn-primary {
         display: inline-block;
         background-color: $primary-color;
-        color: #fff;
+        color: #fff !important; // Ensure text is white
         padding: 12px 25px;
         border-radius: $border-radius;
         font-family: $font-secondary;
         font-weight: 600;
         text-decoration: none;
         transition: background-color 0.3s ease;
+        border: none; // Remove default border from a tag if button styled
         &:hover {
-            background-color: darken($primary-color, 10%); // REVERTED
+            // background-color: color.adjust($primary-color, $lightness: -10%); // New Sass
+            background-color: darken($primary-color, 10%); // Old syntax
             text-decoration: none;
+            color: #fff !important;
         }
     }
 }
@@ -219,19 +246,24 @@ img {
             font-size: 1.4rem;
             a {
                 color: $secondary-color;
+                 &:hover {
+                    color: $primary-color;
+                }
             }
         }
         .project-excerpt {
             font-size: 0.95rem;
             color: $text-muted;
             flex-grow: 1;
+            margin-bottom: 1rem;
         }
         .btn-read-more {
             display: inline-block;
-            margin-top: 1rem;
+            margin-top: auto; // Pushes button to bottom if content is short
             color: $primary-color;
             font-weight: 600;
             text-decoration: none;
+            align-self: flex-start; // Align button to the start
             &:hover {
                 text-decoration: underline;
             }
@@ -245,8 +277,10 @@ img {
     margin-bottom: 1rem;
     span {
         display: inline-block;
-        background-color: lighten($primary-color, 40%); // REVERTED
-        color: darken($primary-color, 10%);          // REVERTED
+        // background-color: color.adjust($primary-color, $lightness: 40%); // New Sass
+        background-color: lighten($primary-color, 40%); // Old syntax
+        // color: color.adjust($primary-color, $lightness: -10%); // New Sass
+        color: darken($primary-color, 10%); // Old syntax
         padding: 3px 8px;
         border-radius: $border-radius;
         font-size: 0.8rem;
@@ -254,16 +288,25 @@ img {
         margin-bottom: 5px;
     }
 }
-.skills-tags-card { margin-bottom: 0.5rem; } // Less bottom margin for cards
+.skills-tags-card {
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap; // Allow tags to wrap
+}
 
 // Project Page Specific
 .project-page {
     article {
         background-color: #fff;
-        padding: 2rem;
+        // padding: 2rem; // Removed to use container padding + section padding
         border-radius: $border-radius;
-        box-shadow: $box-shadow;
+        // box-shadow: $box-shadow; // Can be too much if every section has a shadow
         margin-bottom: 2rem;
+
+        section { // Add padding to sections within the article if needed
+            padding: 1.5rem 0;
+            &:first-child { padding-top: 0; }
+            &:last-child { padding-bottom: 0; }
+        }
     }
     .project-header {
         border-bottom: 1px solid #eee;
@@ -277,22 +320,70 @@ img {
             margin-bottom: 1rem;
         }
     }
-    .project-meta { // For date, author etc. if you add later
-        font-size: 0.9rem;
-        color: $text-muted;
-        margin-bottom: 1.5rem;
-    }
-    img.project-main-image { // For a large image at the top of a project
+    img.project-main-image {
         margin-bottom: 2rem;
         box-shadow: $box-shadow;
     }
 }
 
+// Image Galleries and Plot Containers for Project Pages
+.project-image-gallery, .training-plots, .cam-examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    justify-content: space-around;
+
+    .gallery-column, .plot-container, .cam-container {
+        flex: 1;
+        text-align: center;
+        background-color: #fff; // Optional: card-like background for each item
+        padding: 15px;          // Optional
+        border-radius: $border-radius; // Optional
+        // box-shadow: 0 2px 5px rgba(0,0,0,0.08); // Optional
+
+        img {
+            width: 100%;
+            border: 1px solid #eee;
+            border-radius: $border-radius;
+            margin-bottom: 10px;
+            // box-shadow: 0 2px 4px rgba(0,0,0,0.07); // Simpler shadow if not on container
+        }
+        .column-title, h4 { // h4 is used in training-plots/cam-examples
+            font-weight: 600;
+            font-family: $font-secondary;
+            color: $secondary-color;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        p { // Caption styling
+            font-size: 0.9em;
+            color: $text-muted;
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
+    }
+    .gallery-column {
+        min-width: 200px;
+        max-width: 280px;
+    }
+    .plot-container {
+        min-width: 300px;
+        max-width: 450px;
+    }
+    .cam-container {
+        min-width: 250px;
+        max-width: 350px;
+    }
+}
+
+
 // Code Blocks Styling
 pre, code {
     font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-    font-size: 0.9em;
-    background-color: #f6f8fa; // GitHub-like background
+    font-size: 0.9em; // Slightly smaller
+    background-color: #f6f8fa;
     border-radius: $border-radius;
 }
 pre {
@@ -300,50 +391,24 @@ pre {
     overflow: auto;
     line-height: 1.45;
     border: 1px solid #eaecef;
+    margin-bottom: 1rem; // Added margin
+    code { // Reset for code inside pre for full-width color
+        padding: 0;
+        margin: 0;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+    }
 }
-code {
+// Inline code
+p > code, li > code, dd > code { // Target inline code more specifically
     padding: .2em .4em;
-    margin: 0;
-}
-pre code { // Reset for code inside pre
-    padding: 0;
-    margin: 0;
-    background-color: transparent;
-    border: none;
+    margin: 0 .2em;
+    font-size: 85%; // Common practice for inline code
+    background-color: rgba($primary-color, 0.1); // Subtle background
+    border-radius: 3px;
 }
 
-
-// Image Gallery for Project Pages
-.project-image-gallery {
-    margin-bottom: 1.5rem;
-    .gallery-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px; // Space between columns
-        margin-bottom: 15px;
-        justify-content: space-around; // Or space-between, center
-    }
-    .gallery-column {
-        flex: 1;
-        min-width: 200px; // Adjust as needed
-        max-width: 280px; // Adjust as needed
-        text-align: center;
-        img {
-            width: 100%;
-            border: 1px solid #eee; // Lighter border
-            border-radius: $border-radius;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.07);
-        }
-        .column-title {
-            font-weight: 600; // Bolder title
-            font-family: $font-secondary;
-            color: $secondary-color;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-    }
-}
 
 // Contact Page
 .contact-form {
@@ -368,6 +433,7 @@ pre code { // Reset for code inside pre
         border: 1px solid #ddd;
         border-radius: $border-radius;
         font-family: $font-primary;
+        font-size: 1rem;
     }
     textarea {
         min-height: 150px;
@@ -376,16 +442,20 @@ pre code { // Reset for code inside pre
     button[type="submit"] {
         display: inline-block;
         background-color: $primary-color;
-        color: #fff;
+        color: #fff !important;
         padding: 12px 25px;
         border: none;
         border-radius: $border-radius;
         font-family: $font-secondary;
         font-weight: 600;
         cursor: pointer;
+        text-decoration: none;
         transition: background-color 0.3s ease;
         &:hover {
-            background-color: darken($primary-color, 10%); // REVERTED
+            // background-color: color.adjust($primary-color, $lightness: -10%); // New Sass
+            background-color: darken($primary-color, 10%); // Old syntax
+            color: #fff !important;
+            text-decoration: none;
         }
     }
 }
@@ -396,7 +466,20 @@ pre code { // Reset for code inside pre
 }
 
 
-// Animations
+// Scroll Reveal Animations
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform; // Hint for browser optimization
+}
+
+.scroll-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+// Animations (General Fade-in, used on main container)
 .fade-in {
     animation: fadeInAnimation 0.7s ease-in-out;
 }
@@ -407,8 +490,12 @@ pre code { // Reset for code inside pre
 
 // Responsive
 @media (max-width: 768px) {
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.5rem; }
+
     .site-header {
-        position: static; // Or adjust for mobile sticky
+        position: static;
         .header-flex {
             flex-direction: column;
             align-items: center;
@@ -421,15 +508,27 @@ pre code { // Reset for code inside pre
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            width: 100%; // Make nav take full width
             a {
                 margin: 5px 10px;
+                font-size: 0.9rem; // Slightly smaller nav links on mobile
             }
         }
     }
-    .hero-section h1 { font-size: 2.5rem; }
-    .hero-section .hero-subtitle { font-size: 1rem; }
+    .hero-section {
+        padding: 3rem 0;
+        h1 { font-size: 2.5rem; }
+        .hero-subtitle { font-size: 1.1rem; }
+    }
 
     .project-grid {
         grid-template-columns: 1fr; // Stack cards on mobile
+    }
+
+    .project-image-gallery, .training-plots, .cam-examples {
+        .gallery-column, .plot-container, .cam-container {
+            min-width: 100%; // Full width for image/plot items on mobile
+            max-width: 100%;
+        }
     }
 }
