@@ -22,7 +22,7 @@ I possess 6+ years of progressive experience in transforming complex data into a
 </div>
 
 <div class="scroll-reveal">
-My professional roles, notably at **NEC Software Solutions** (Housing Department) and **Metropolitan Thames Valley Housing**, have allowed me to apply these skills extensively. I've designed, developed, and maintained comprehensive BI solutions, led the creation of bespoke reports, engineered ETL processes, and built predictive models addressing critical business needs in the housing sector.
+My professional roles, notably at <b>NEC Software Solutions</b> (Housing Department) and <b>Metropolitan Thames Valley Housing</b>, have allowed me to apply these skills extensively. I've designed, developed, and maintained comprehensive BI solutions, led the creation of bespoke reports, engineered ETL processes, and built predictive models addressing critical business needs in the housing sector.
 </div>
 
 <div class="scroll-reveal">
@@ -80,7 +80,7 @@ I am passionate about the entire data lifecycle – from requirements gathering 
     <p>My economics background often helps me see the bigger picture, connecting data insights to broader organizational goals and market dynamics.</p>
 </div>
 
-## <div class="scroll-reveal">
+<div class="scroll-reveal">
 
 _Interests: Basketball, Music Production, Investment and Trading._
 
