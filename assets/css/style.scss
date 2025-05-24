@@ -312,6 +312,39 @@ pre code { // Reset for code inside pre
     border: none;
 }
 
+
+// Image Gallery for Project Pages
+.project-image-gallery {
+    margin-bottom: 1.5rem;
+    .gallery-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; // Space between columns
+        margin-bottom: 15px;
+        justify-content: space-around; // Or space-between, center
+    }
+    .gallery-column {
+        flex: 1;
+        min-width: 200px; // Adjust as needed
+        max-width: 280px; // Adjust as needed
+        text-align: center;
+        img {
+            width: 100%;
+            border: 1px solid #eee; // Lighter border
+            border-radius: $border-radius;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.07);
+        }
+        .column-title {
+            font-weight: 600; // Bolder title
+            font-family: $font-secondary;
+            color: $secondary-color;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+    }
+}
+
 // Contact Page
 .contact-form {
     max-width: 600px;

@@ -52,8 +52,23 @@ The solution encompasses image analysis using Deep Learning, data management via
   )
   # ... train_gen setup ...
   ```
-- **Sample Images:**
-  - (Embed 1-2 sample 'mould' and 'clean' images here. Upload them to `assets/images/mould_project/` and link: `![Mould Sample](/assets/images/mould_project/mould_example.jpg)`)
+
+* **Sample Images:**
+  <p>Below are a few examples from the dataset, illustrating typical 'clean' and 'mould-affected' scenarios encountered.</p>
+  <div class="project-image-gallery">
+      <div class="gallery-row">
+          <div class="gallery-column">
+              <p class="column-title">Clean Examples:</p>
+              <img src="{{ '/assets/images/mould_project/clean_bathroom_ex.jpeg' | relative_url }}" alt="Clean Bathroom Example">
+              <img src="{{ '/assets/images/mould_project/clean_bedroom_ex.jpeg' | relative_url }}" alt="Clean Bedroom Example">
+          </div>
+          <div class="gallery-column">
+              <p class="column-title">Mould-Affected Examples:</p>
+              <img src="{{ '/assets/images/mould_project/mould_room_ex.jpeg' | relative_url }}" alt="Mouldy Room Example">
+              <img src="{{ '/assets/images/mould_project/mould_wall_ex.jpeg' | relative_url }}" alt="Mouldy Wall Example">
+          </div>
+      </div>
+  </div>
 
 ### Phase 2: Model Development & Training (Python, TensorFlow/Keras)
 
