@@ -21,7 +21,7 @@ github_repo_url: https://github.com/DeanAnalyst/mould-detection-cnn # Replace wi
 ---
 
 <!-- Main image for the project page (optional) -->
-<!-- <img src="/assets/images/mould_project/mould_hero_image.jpg" alt="Mould Detection Project Overview" class="project-main-image"> -->
+<img src="/assets/images/mould_project/mould_hero_image.png" alt="Mould Detection Project Overview" class="project-main-image">
 
 This project, originating from my MSc dissertation, addresses the critical issue of damp and mould in residential properties by developing an automated detection system. The goal is to enable proactive maintenance in the social housing sector, improving tenant well-being and operational efficiency.
 
