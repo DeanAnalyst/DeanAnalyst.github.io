@@ -158,14 +158,68 @@ df_analysis['Is_Anomaly_IF'] = (df_analysis['Anomaly_Pred_IF'] == -1)
         <!-- Option 1: Embed the HTML directly if your CSP allows and it's not too complex -->
         <iframe src="{{ page.interactive_plot_url }}" width="100%" height="750px" style="border:1px solid #ddd;"></iframe>
         <!-- Option 2: Screenshot and link to the HTML file -->
-        <a href="{{ page.interactive_plot_url | default: '#' }}" target="_blank" rel="noopener noreferrer">
-            <img src="{{ '/assets/images/crypto_project/risk_reward_profile_static.png' | relative_url }}" alt="Crypto Risk vs Reward Profile Scatter Plot" style="max-width:700px; border:1px solid #ddd; border-radius:5px;">
-        </a><br>
+<br>
         <a href="{{ page.interactive_plot_url | default: '#' }}" class="btn-primary" target="_blank" rel="noopener noreferrer" style="margin-top:0.5rem;">View Interactive Risk-Reward Plot »</a>
     </p>
     <p style="text-align:center; font-size:0.9em; color: #555;"><em>Click image or button to view the interactive Plotly chart (opens HTML file).</em></p>
 </div>
+<div class="scroll-reveal">
+    <h2>Key Insights & Recommendations</h2>
+    <p>This analysis of cryptocurrency market data yielded several notable findings and potential areas for further consideration for investors or analysts in this space:</p>
 
+    <ul>
+        <li>
+            <strong>Dominance of Fundamentals in Risk Profiling:</strong>
+            The engineered risk score, heavily influenced by inverse market capitalization and volatility (Absolute 24h Change), effectively highlights that smaller, more volatile assets are inherently perceived as riskier. This aligns with traditional financial intuition. The interactive scatter plot visually confirms this, with many smaller-cap coins clustering towards higher risk scores.
+        </li>
+        <li>
+            <strong>Activity Metrics as Reward Proxies:</strong>
+            Metrics like Log Total Volume and recent positive 24h Change served as useful (though simplified) proxies for reward or positive market activity. Assets in the "High Reward" quadrants often exhibited significant recent trading volume or price appreciation.
+            <em>Recommendation: For a more robust reward metric, incorporating longer-term price performance (e.g., 30-day, 90-day returns) or momentum indicators could be beneficial.</em>
+        </li>
+        <li>
+            <strong>The "Low Risk, High Reward" Quadrant - A Target for Due Diligence:</strong>
+            Cryptocurrencies appearing in this quadrant (e.g., names like Alpaca Finance, Sign from the notebook's sample output) warrant deeper investigation. While the model flags them based on current data, further due diligence into their project fundamentals, team, tokenomics, and roadmap is crucial before considering any investment.
+            <em>Opinion: This quadrant often contains established projects experiencing positive momentum or undervalued newer projects beginning to gain traction.</em>
+        </li>
+        <li>
+            <strong>Anomaly Detection as a Flag for Scrutiny:</strong>
+            The Isolation Forest identified several anomalies.
+            <ul>
+                <li><strong>Major Caps as "Anomalies":</strong> Coins like Bitcoin and Ethereum were flagged, primarily due to their extremely high market capitalizations, which are outliers compared to the vast majority of the dataset. This is an expected outcome and validates that the model picks up on extreme values.</li>
+                <li><strong>High Volatility/Liquidity Outliers:</strong> Other anomalies (e.g., Virtuals Protocol, Pudgy Penguins from the notebook's sample output) often exhibited extreme recent price changes or unusual liquidity ratios compared to their market cap.
+                <em>Recommendation: Anomalies are not inherently "bad" or "good" but serve as flags for further investigation. An unusually high liquidity ratio for a small-cap coin, for instance, might indicate wash trading or a very recent surge in interest that needs to be understood.</em></li>
+            </ul>
+        </li>
+        <li>
+            <strong>Limitations of Heuristic Scoring:</strong>
+            The risk-reward scores are based on a defined set of heuristics and subjective weights.
+            <em>Opinion: While useful for a comparative overview, these scores should not be the sole basis for investment decisions. The crypto market is influenced by many qualitative factors (community sentiment, regulatory news, technological breakthroughs) not captured in this quantitative model.</em>
+        </li>
+        <li>
+            <strong>Stablecoins - A Different Breed:</strong>
+            The decision to exclude stablecoins from the primary risk-reward analysis was important, as their price stability and different utility function would skew the scoring intended for speculative assets. Their separate identification is key.
+        </li>
+        <li>
+            <strong>Market Cap Tiers for Context:</strong>
+            Categorizing coins by market cap tiers (Micro, Small, Mid, Large, Mega) provides essential context when interpreting risk and reward. A "high risk" score for a micro-cap coin might be expected, whereas the same score for a large-cap coin would be more concerning.
+            <em>Recommendation: When using the interactive plot, filtering by Market Cap Tier can help compare similar-sized projects more effectively.</em>
+        </li>
+        <li>
+            <strong>Potential for Portfolio Construction:</strong>
+            (Conceptual) This type of risk-reward framework, if further refined, could serve as an initial screening tool for constructing a diversified crypto portfolio, balancing exposure across different risk profiles.
+        </li>
+    </ul>
+    <p><strong>Overall Recommendation:</strong> This analytical approach provides a structured way to sift through a large number of crypto assets. However, any insights or scores generated should be used as a starting point for deeper, qualitative research rather than definitive investment advice. The dynamic nature of the crypto market necessitates continuous monitoring and model adaptation.</p>
+
+</div>
+
+<div class="scroll-reveal" style="margin-top: 2rem; text-align:center;">
+    <a href="{{ page.github_repo_url }}" class="btn-primary" target="_blank" rel="noopener noreferrer" style="background-color:#333;">View Notebook & Code on GitHub »</a>
+    {% if page.interactive_plot_url %}
+    <a href="{{ page.interactive_plot_url }}" class="btn-primary" target="_blank" rel="noopener noreferrer" style="background-color:#555; margin-left:10px;">View Interactive Risk-Reward Plot »</a>
+    {% endif %}
+</div>
 <div class="scroll-reveal" style="margin-top: 2rem; text-align:center;">
     <a href="{{ page.github_repo_url }}" class="btn-primary" target="_blank" rel="noopener noreferrer" style="background-color:#333;">View Notebook & Code on GitHub »</a>
 </div>
