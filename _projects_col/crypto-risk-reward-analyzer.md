@@ -18,7 +18,7 @@ skills:
   - Anomaly Detection
   - Data Visualization
   - Financial Data Analysis
-github_repo_url: https://github.com/yourusDeanAnalystername/crypto_risk_reward_analyzer # Your actual repo URL
+github_repo_url: https://github.com/DeanAnalyst/crypto_risk_reward_analyzer # Your actual repo URL
 # Optional: Link to the interactive HTML plot if hosted (e.g., on GitHub Pages within the project repo)
 interactive_plot_url: https://deananalyst.github.io/crypto_risk_reward_analyzer/notebooks/output/interactive_plots/risk_reward_profile.html # Example, if you enable Pages on the project repo
 ---
