@@ -157,11 +157,6 @@ df_analysis['Is_Anomaly_IF'] = (df_analysis['Anomaly_Pred_IF'] == -1)
     <p style="text-align:center; margin-top:1rem;">
         <!-- Option 1: Embed the HTML directly if your CSP allows and it's not too complex -->
         <iframe src="{{ page.interactive_plot_url }}" width="100%" height="750px" style="border:1px solid #ddd;"></iframe>
-        <!-- Option 2: Screenshot and link to the HTML file -->
-<br>
-        <a href="{{ page.interactive_plot_url | default: '#' }}" class="btn-primary" target="_blank" rel="noopener noreferrer" style="margin-top:0.5rem;">View Interactive Risk-Reward Plot »</a>
-    </p>
-    <p style="text-align:center; font-size:0.9em; color: #555;"><em>Click image or button to view the interactive Plotly chart (opens HTML file).</em></p>
 </div>
 <div class="scroll-reveal">
     <h2>Key Insights & Recommendations</h2>
@@ -214,12 +209,6 @@ df_analysis['Is_Anomaly_IF'] = (df_analysis['Anomaly_Pred_IF'] == -1)
 
 </div>
 
-<div class="scroll-reveal" style="margin-top: 2rem; text-align:center;">
-    <a href="{{ page.github_repo_url }}" class="btn-primary" target="_blank" rel="noopener noreferrer" style="background-color:#333;">View Notebook & Code on GitHub »</a>
-    {% if page.interactive_plot_url %}
-    <a href="{{ page.interactive_plot_url }}" class="btn-primary" target="_blank" rel="noopener noreferrer" style="background-color:#555; margin-left:10px;">View Interactive Risk-Reward Plot »</a>
-    {% endif %}
-</div>
 <div class="scroll-reveal" style="margin-top: 2rem; text-align:center;">
     <a href="{{ page.github_repo_url }}" class="btn-primary" target="_blank" rel="noopener noreferrer" style="background-color:#333;">View Notebook & Code on GitHub »</a>
 </div>
