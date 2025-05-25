@@ -2,8 +2,6 @@
 # Front matter tells Jekyll to process this file
 ---
 
-// @use "sass:color"; // Use this only if building with Dart Sass (e.g., GitHub Actions)
-
 // --- CSS Custom Properties (Variables) ---
 :root {
     // Light Mode (Default)
@@ -20,45 +18,49 @@
     --code-border: #e1e4e8;
     --inline-code-bg: rgba(0, 123, 255, 0.08);
     --link-color: var(--primary-color);
-    --link-hover-color: #{darken(#007bff, 10%)}; // Sass fn for GH Pages
+    --link-hover-color: #{darken(#007bff, 10%)}; // Derived from a static color
+    --nav-link-hover-border-color: #{lighten(#007bff, 30%)}; // Derived from static color
     --header-bg: #ffffff;
     --footer-bg: var(--secondary-color);
-    --footer-text: #e9ecef; // Lighter text for dark footer
-    --footer-link-color: #{lighten(#007bff, 25%)}; // Sass fn
+    --footer-text: #e9ecef;
+    --footer-link-color: #{lighten(#007bff, 25%)}; // Derived from static color
+    --footer-link-hover-color: #ffffff; // Fixed color for hover in light mode
     --button-primary-bg: var(--primary-color);
     --button-primary-text: #ffffff;
-    --button-primary-hover-bg: #{darken(#007bff, 10%)};
-    --skill-tag-bg: #{lighten(#007bff, 40%)};
-    --skill-tag-text: #{darken(#007bff, 10%)};
-    --plot-image-filter: none; // No filter for images in light mode
+    --button-primary-hover-bg: #{darken(#007bff, 10%)}; // Derived from static color
+    --skill-tag-bg: #{lighten(#007bff, 40%)}; // Derived from static color
+    --skill-tag-text: #{darken(#007bff, 10%)}; // Derived from static color
+    --plot-image-filter: none;
 }
 
 body.dark-mode {
     // Dark Mode Overrides
-    --primary-color: #0d6efd; // Can be same or adjusted
-    --secondary-color: #ced4da; // Lighter for headings on dark bg
-    --light-gray: #2c3034;     // Darker element backgrounds
-    --text-color: #f8f9fa;       // Light text for dark page
-    --text-muted: #adb5bd;     // Lighter muted text
-    --background-color: #1a1d20; // Main dark page background
-    --card-background: #212529;    // Dark card/article background
+    --primary-color: #0d6efd; // Can be same or adjusted for dark
+    --secondary-color: #ced4da;
+    --light-gray: #2c3034;
+    --text-color: #f8f9fa;
+    --text-muted: #adb5bd;
+    --background-color: #1a1d20;
+    --card-background: #212529;
     --card-shadow: 0 5px 15px rgba(0,0,0,0.25);
-    --border-color: #495057;     // Darker borders
-    --code-bg: #282c34;         // Dark code block background
+    --border-color: #495057;
+    --code-bg: #282c34;
     --code-border: #3e444a;
-    --inline-code-bg: rgba(13, 110, 253, 0.2);
-    --link-color: #6ea8fe;       // Brighter link color
-    --link-hover-color: #{lighten(#6ea8fe, 10%)};
+    --inline-code-bg: rgba(13, 110, 253, 0.2); // Based on dark primary
+    --link-color: #6ea8fe; // Brighter link color for dark mode
+    --link-hover-color: #{lighten(#6ea8fe, 10%)}; // Derived from dark link static color
+    --nav-link-hover-border-color: #{lighten(#6ea8fe, 20%)}; // Derived from dark link static color
     --header-bg: #212529;
     --footer-bg: #16191c;
     --footer-text: var(--text-muted);
-    --footer-link-color: var(--link-color);
-    --button-primary-bg: var(--link-color);
-    --button-primary-text: #1a1d20; // Dark text on light blue button
-    --button-primary-hover-bg: #{lighten(#6ea8fe, 10%)};
-    --skill-tag-bg: rgba(13, 110, 253, 0.25);
+    --footer-link-color: var(--link-color); // Uses the dark mode link color
+    --footer-link-hover-color: #{lighten(#6ea8fe, 15%)}; // Derived from dark link static color
+    --button-primary-bg: var(--link-color); // Use dark mode link color for button
+    --button-primary-text: #1a1d20;
+    --button-primary-hover-bg: #{lighten(#6ea8fe, 10%)}; // Derived from dark link static color
+    --skill-tag-bg: rgba(13, 110, 253, 0.25); // Based on dark primary
     --skill-tag-text: var(--link-color);
-    --plot-image-filter: brightness(0.85) contrast(1.1); // Dim plots slightly in dark mode
+    --plot-image-filter: brightness(0.85) contrast(1.1);
 }
 
 // --- SCSS Variables (can still be used if not theme-dependent) ---
@@ -99,7 +101,7 @@ img {
     max-width: 100%;
     height: auto;
     border-radius: $border-radius;
-    filter: var(--plot-image-filter); // Apply filter
+    filter: var(--plot-image-filter);
     transition: filter 0.2s ease-in-out;
 }
 ul, ol { margin-left: 20px; margin-bottom: 1rem; ul, ol { margin-bottom: 0; } }
@@ -122,11 +124,9 @@ ul, ol { margin-left: 20px; margin-bottom: 1rem; ul, ol { margin-bottom: 0; } }
         padding-bottom: 5px; border-bottom: 2px solid transparent;
         transition: color 0.3s ease, border-bottom-color 0.3s ease;
         &:hover {
-            color: var(--link-color); text-decoration: none;
-            // Can't use CSS var directly in Sass lighten/darken for GH Pages build
-            // border-bottom-color: lighten($primary-color, 25%); // If $primary-color was Sass
-            border-bottom-color: var(--link-color); // Simpler hover border
-            opacity: 0.8;
+            color: var(--link-hover-color); text-decoration: none;
+            border-bottom-color: var(--nav-link-hover-border-color); // Use defined hover border color
+            opacity: 0.8; // Keep opacity or adjust
         }
         &.active { color: var(--link-color); font-weight: 600; border-bottom-color: var(--link-color); }
     }
@@ -154,8 +154,7 @@ ul, ol { margin-left: 20px; margin-bottom: 1rem; ul, ol { margin-bottom: 0; } }
     a {
         color: var(--footer-link-color);
         &:hover {
-            color: #fff; // For light mode footer
-            body.dark-mode & { color: lighten(var(--link-color), 15%); } // Specific hover for dark mode footer link
+            color: var(--footer-link-hover-color); // Use defined hover color
         }
     }
     p { margin-bottom: 0.5rem; }
@@ -189,7 +188,7 @@ ul, ol { margin-left: 20px; margin-bottom: 1rem; ul, ol { margin-bottom: 0; } }
     .project-thumbnail { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-color); border-radius: $border-radius $border-radius 0 0; }
     .project-card-content {
         padding: 20px; flex-grow: 1; display: flex; flex-direction: column;
-        h3 { margin-top: 0; font-size: 1.4rem; a { color: var(--secondary-color); &:hover { color: var(--link-color); } } }
+        h3 { margin-top: 0; font-size: 1.4rem; a { color: var(--secondary-color); &:hover { color: var(--link-hover-color); } } }
         .project-excerpt { font-size: 0.95rem; color: var(--text-muted); flex-grow: 1; margin-bottom: 1rem; }
         .btn-read-more { display: inline-block; margin-top: auto; color: var(--link-color); font-weight: 600; text-decoration: none; align-self: flex-start; &:hover { text-decoration: underline; } }
     }
@@ -227,8 +226,6 @@ img.project-main-image { margin-bottom: 2rem; box-shadow: var(--card-shadow); }
     .gallery-column, .plot-container, .cam-container {
         flex: 1; text-align: center; background-color: var(--card-background);
         padding: 15px; border-radius: $border-radius;
-        // box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-        // body.dark-mode & { box-shadow: 0 2px 5px rgba(0,0,0,0.15); }
         transition: background-color 0.2s ease-in-out;
         img {
             width: 100%; border: 1px solid var(--border-color); border-radius: $border-radius;
@@ -251,7 +248,8 @@ p > code, li > code, dd > code {
     padding: .2em .4em; margin: 0 .2em; font-size: 85%;
     background-color: var(--inline-code-bg); border-radius: 3px;
     color: var(--text-color);
-    body.dark-mode & { color: var(--link-color); } // Brighter inline code in dark mode
+    body.dark-mode & { color: var(--link-color); }
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 // Contact Page
@@ -263,7 +261,7 @@ p > code, li > code, dd > code {
     input[type="text"], input[type="email"], textarea {
         width: 100%; padding: 10px; margin-bottom: 1rem; border: 1px solid var(--border-color);
         border-radius: $border-radius; font-family: $font-primary; font-size: 1rem;
-        background-color: var(--background-color); color: var(--text-color); // Use page bg for input fields
+        background-color: var(--background-color); color: var(--text-color);
         transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
     }
     textarea { min-height: 150px; resize: vertical; }
@@ -296,7 +294,7 @@ p > code, li > code, dd > code {
         .logo { margin-bottom: 1rem; text-align: center; }
         nav { display: flex; flex-wrap: wrap; justify-content: center; width: 100%;
             a { margin: 5px 10px; font-size: 0.9rem; }
-            .theme-toggle-button { margin-top: 10px; } // Ensure toggle button is spaced on mobile
+            .theme-toggle-button { margin-top: 10px; margin-left: 0; } // Center toggle button on mobile
         }
     }
     .hero-section { padding: 3rem 0; h1 { font-size: 2.5rem; } .hero-subtitle { font-size: 1.1rem; } }
