@@ -2,533 +2,306 @@
 # Front matter tells Jekyll to process this file
 ---
 
-// @use "sass:color"; // Use this if your Sass compiler supports modules (GitHub Pages default doesn't)
+// @use "sass:color"; // Use this only if building with Dart Sass (e.g., GitHub Actions)
 
-// Variables
-$primary-color: #007bff; // A nice blue
-$secondary-color: #343a40; // Dark grey
-$light-gray: #f8f9fa;
-$text-color: #333;
-$text-muted: #6c757d;
+// --- CSS Custom Properties (Variables) ---
+:root {
+    // Light Mode (Default)
+    --primary-color: #007bff;
+    --secondary-color: #343a40; // For headings, strong text
+    --light-gray: #f8f9fa;     // For backgrounds like hero section
+    --text-color: #212529;     // Main body text
+    --text-muted: #6c757d;   // Subdued text
+    --background-color: #ffffff; // Page background
+    --card-background: #ffffff;  // Card/article background
+    --card-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    --border-color: #dee2e6;   // Borders, dividers
+    --code-bg: #f6f8fa;
+    --code-border: #e1e4e8;
+    --inline-code-bg: rgba(0, 123, 255, 0.08);
+    --link-color: var(--primary-color);
+    --link-hover-color: #{darken(#007bff, 10%)}; // Sass fn for GH Pages
+    --header-bg: #ffffff;
+    --footer-bg: var(--secondary-color);
+    --footer-text: #e9ecef; // Lighter text for dark footer
+    --footer-link-color: #{lighten(#007bff, 25%)}; // Sass fn
+    --button-primary-bg: var(--primary-color);
+    --button-primary-text: #ffffff;
+    --button-primary-hover-bg: #{darken(#007bff, 10%)};
+    --skill-tag-bg: #{lighten(#007bff, 40%)};
+    --skill-tag-text: #{darken(#007bff, 10%)};
+    --plot-image-filter: none; // No filter for images in light mode
+}
+
+body.dark-mode {
+    // Dark Mode Overrides
+    --primary-color: #0d6efd; // Can be same or adjusted
+    --secondary-color: #ced4da; // Lighter for headings on dark bg
+    --light-gray: #2c3034;     // Darker element backgrounds
+    --text-color: #f8f9fa;       // Light text for dark page
+    --text-muted: #adb5bd;     // Lighter muted text
+    --background-color: #1a1d20; // Main dark page background
+    --card-background: #212529;    // Dark card/article background
+    --card-shadow: 0 5px 15px rgba(0,0,0,0.25);
+    --border-color: #495057;     // Darker borders
+    --code-bg: #282c34;         // Dark code block background
+    --code-border: #3e444a;
+    --inline-code-bg: rgba(13, 110, 253, 0.2);
+    --link-color: #6ea8fe;       // Brighter link color
+    --link-hover-color: #{lighten(#6ea8fe, 10%)};
+    --header-bg: #212529;
+    --footer-bg: #16191c;
+    --footer-text: var(--text-muted);
+    --footer-link-color: var(--link-color);
+    --button-primary-bg: var(--link-color);
+    --button-primary-text: #1a1d20; // Dark text on light blue button
+    --button-primary-hover-bg: #{lighten(#6ea8fe, 10%)};
+    --skill-tag-bg: rgba(13, 110, 253, 0.25);
+    --skill-tag-text: var(--link-color);
+    --plot-image-filter: brightness(0.85) contrast(1.1); // Dim plots slightly in dark mode
+}
+
+// --- SCSS Variables (can still be used if not theme-dependent) ---
 $font-primary: 'Roboto', sans-serif;
 $font-secondary: 'Montserrat', sans-serif;
 $border-radius: 5px;
-$box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 
-// Reset and Base Styles
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth; // For smooth internal links if you add them
-}
+// --- Base and Element Styles using CSS Variables ---
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
 body {
     font-family: $font-primary;
     line-height: 1.7;
-    color: $text-color;
-    background-color: #fff; // White background
+    color: var(--text-color);
+    background-color: var(--background-color);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-.container {
-    width: 90%;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
+.container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 0 15px; }
+main.container { flex-grow: 1; padding-top: 2rem; padding-bottom: 2rem; }
 
-main.container {
-    flex-grow: 1;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: $font-secondary;
-    margin-bottom: 0.75rem;
-    font-weight: 600;
-    color: $secondary-color;
-}
-
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.75rem; }
-h4 { font-size: 1.25rem; }
-
-
-p {
-    margin-bottom: 1rem;
-}
+h1, h2, h3, h4, h5, h6 { font-family: $font-secondary; margin-bottom: 0.75rem; font-weight: 600; color: var(--secondary-color); }
+h1 { font-size: 2.5rem; } h2 { font-size: 2rem; } h3 { font-size: 1.75rem; } h4 { font-size: 1.25rem; }
+p { margin-bottom: 1rem; }
 
 a {
-    color: $primary-color;
+    color: var(--link-color);
     text-decoration: none;
     transition: color 0.3s ease;
-    &:hover {
-        // color: color.adjust($primary-color, $lightness: -10%); // New Sass module syntax
-        color: darken($primary-color, 10%); // Old syntax for GitHub Pages compatibility
-        text-decoration: underline;
-    }
+    &:hover { color: var(--link-hover-color); text-decoration: underline; }
 }
 
 img {
     max-width: 100%;
     height: auto;
     border-radius: $border-radius;
+    filter: var(--plot-image-filter); // Apply filter
+    transition: filter 0.2s ease-in-out;
 }
-
-ul, ol {
-    margin-left: 20px;
-    margin-bottom: 1rem;
-    ul, ol {
-        margin-bottom: 0; // Reset for nested lists
-    }
-}
+ul, ol { margin-left: 20px; margin-bottom: 1rem; ul, ol { margin-bottom: 0; } }
 
 // Header
 .site-header {
-    background-color: #fff;
+    background-color: var(--header-bg);
     padding: 1rem 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    body.dark-mode & { box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+    position: sticky; top: 0; z-index: 1000;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 
-    .header-flex {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .logo a {
-        font-family: $font-secondary;
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: $secondary-color;
-        text-decoration: none;
-    }
-    .logo .tagline {
-        font-size: 0.85rem;
-        color: $text-muted;
-        display: block;
-        margin-top: -5px;
-    }
-
+    .header-flex { display: flex; justify-content: space-between; align-items: center; }
+    .logo a { font-family: $font-secondary; font-size: 1.8rem; font-weight: 600; color: var(--secondary-color); text-decoration: none; }
+    .logo .tagline { font-size: 0.85rem; color: var(--text-muted); display: block; margin-top: -5px; }
     nav a {
-        margin-left: 20px;
-        font-family: $font-secondary;
-        font-weight: 400;
-        color: $text-color;
-        padding-bottom: 5px; // Space for potential border
-        border-bottom: 2px solid transparent; // For active state
+        margin-left: 20px; font-family: $font-secondary; font-weight: 400; color: var(--text-color);
+        padding-bottom: 5px; border-bottom: 2px solid transparent;
         transition: color 0.3s ease, border-bottom-color 0.3s ease;
-
         &:hover {
-            color: $primary-color;
-            text-decoration: none;
-            border-bottom-color: lighten($primary-color, 25%);
+            color: var(--link-color); text-decoration: none;
+            // Can't use CSS var directly in Sass lighten/darken for GH Pages build
+            // border-bottom-color: lighten($primary-color, 25%); // If $primary-color was Sass
+            border-bottom-color: var(--link-color); // Simpler hover border
+            opacity: 0.8;
         }
-        &.active {
-            color: $primary-color;
-            font-weight: 600;
-            border-bottom-color: $primary-color;
-        }
+        &.active { color: var(--link-color); font-weight: 600; border-bottom-color: var(--link-color); }
+    }
+}
+
+// Theme Toggle Button
+.theme-toggle-button {
+    background: none; border: 1px solid var(--border-color); color: var(--text-muted);
+    padding: 0.35rem 0.65rem; margin-left: 15px; border-radius: $border-radius;
+    cursor: pointer; font-size: 0.9rem; line-height: 1;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: color 0.3s ease, border-color 0.3s ease;
+    i { transition: transform 0.3s ease-out; }
+    &:hover {
+        color: var(--text-color); border-color: var(--text-color);
+        i { transform: rotate(15deg) scale(1.1); }
     }
 }
 
 // Footer
 .site-footer {
-    background-color: $secondary-color;
-    color: $light-gray;
-    padding: 2rem 0;
-    text-align: center;
-    font-size: 0.9rem;
-
+    background-color: var(--footer-bg); color: var(--footer-text);
+    padding: 2rem 0; text-align: center; font-size: 0.9rem;
+    transition: background-color 0.2s ease-in-out;
     a {
-        // color: color.adjust($primary-color, $lightness: 20%); // New Sass module syntax
-        color: lighten($primary-color, 20%); // Old syntax for GitHub Pages compatibility
+        color: var(--footer-link-color);
         &:hover {
-            color: #fff;
+            color: #fff; // For light mode footer
+            body.dark-mode & { color: lighten(var(--link-color), 15%); } // Specific hover for dark mode footer link
         }
     }
-    p {
-        margin-bottom: 0.5rem;
-    }
+    p { margin-bottom: 0.5rem; }
 }
 
 // Homepage Specific
 .hero-section {
-    text-align: center;
-    padding: 4rem 0;
-    background-color: $light-gray;
-    border-bottom: 1px solid #eee;
-    h1 {
-        font-size: 3rem;
-        color: $secondary-color;
-    }
-    .hero-subtitle {
-        font-size: 1.2rem;
-        color: $text-muted;
-        max-width: 700px;
-        margin: 1rem auto 2rem;
-    }
+    text-align: center; padding: 4rem 0; background-color: var(--light-gray);
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    h1 { font-size: 3rem; color: var(--secondary-color); }
+    .hero-subtitle { font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin: 1rem auto 2rem; }
     .btn-primary {
-        display: inline-block;
-        background-color: $primary-color;
-        color: #fff !important; // Ensure text is white
-        padding: 12px 25px;
-        border-radius: $border-radius;
-        font-family: $font-secondary;
-        font-weight: 600;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
-        border: none; // Remove default border from a tag if button styled
+        display: inline-block; background-color: var(--button-primary-bg); color: var(--button-primary-text) !important;
+        padding: 12px 25px; border-radius: $border-radius; font-family: $font-secondary; font-weight: 600;
+        text-decoration: none; transition: background-color 0.3s ease; border: none;
         &:hover {
-            // background-color: color.adjust($primary-color, $lightness: -10%); // New Sass
-            background-color: darken($primary-color, 10%); // Old syntax
-            text-decoration: none;
-            color: #fff !important;
+            background-color: var(--button-primary-hover-bg);
+            color: var(--button-primary-text) !important; text-decoration: none;
         }
     }
 }
+.featured-projects-section { padding: 3rem 0; h2 { text-align: center; margin-bottom: 2rem; } }
 
-.featured-projects-section {
-    padding: 3rem 0;
-    h2 {
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-}
-
-// Project Card (used on projects listing page and potentially homepage)
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
-}
-
+// Project Card
 .project-card {
-    background-color: #fff;
-    border-radius: $border-radius;
-    box-shadow: $box-shadow;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-    &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-    }
-
-    .project-thumbnail {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        border-bottom: 1px solid #eee;
-        border-radius: $border-radius $border-radius 0 0;
-    }
-
+    background-color: var(--card-background); box-shadow: var(--card-shadow);
+    border-radius: $border-radius; overflow: hidden; display: flex; flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.2s ease-in-out;
+    &:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); body.dark-mode & { box-shadow: 0 8px 16px rgba(0,0,0,0.3); } }
+    .project-thumbnail { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-color); border-radius: $border-radius $border-radius 0 0; }
     .project-card-content {
-        padding: 20px;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        h3 {
-            margin-top: 0;
-            font-size: 1.4rem;
-            a {
-                color: $secondary-color;
-                 &:hover {
-                    color: $primary-color;
-                }
-            }
-        }
-        .project-excerpt {
-            font-size: 0.95rem;
-            color: $text-muted;
-            flex-grow: 1;
-            margin-bottom: 1rem;
-        }
-        .btn-read-more {
-            display: inline-block;
-            margin-top: auto; // Pushes button to bottom if content is short
-            color: $primary-color;
-            font-weight: 600;
-            text-decoration: none;
-            align-self: flex-start; // Align button to the start
-            &:hover {
-                text-decoration: underline;
-            }
-        }
+        padding: 20px; flex-grow: 1; display: flex; flex-direction: column;
+        h3 { margin-top: 0; font-size: 1.4rem; a { color: var(--secondary-color); &:hover { color: var(--link-color); } } }
+        .project-excerpt { font-size: 0.95rem; color: var(--text-muted); flex-grow: 1; margin-bottom: 1rem; }
+        .btn-read-more { display: inline-block; margin-top: auto; color: var(--link-color); font-weight: 600; text-decoration: none; align-self: flex-start; &:hover { text-decoration: underline; } }
     }
 }
 
-// Skills Tags (used on project cards and project pages)
+// Skills Tags
 .skills-tags, .skills-tags-card {
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
+    margin-top: 0.5rem; margin-bottom: 1rem;
     span {
-        display: inline-block;
-        // background-color: color.adjust($primary-color, $lightness: 40%); // New Sass
-        background-color: lighten($primary-color, 40%); // Old syntax
-        // color: color.adjust($primary-color, $lightness: -10%); // New Sass
-        color: darken($primary-color, 10%); // Old syntax
-        padding: 3px 8px;
-        border-radius: $border-radius;
-        font-size: 0.8rem;
-        margin-right: 5px;
-        margin-bottom: 5px;
+        display: inline-block; background-color: var(--skill-tag-bg); color: var(--skill-tag-text);
+        padding: 3px 8px; border-radius: $border-radius; font-size: 0.8rem;
+        margin-right: 5px; margin-bottom: 5px;
     }
 }
-.skills-tags-card {
-    margin-bottom: 0.5rem;
-    flex-wrap: wrap; // Allow tags to wrap
-}
+.skills-tags-card { margin-bottom: 0.5rem; flex-wrap: wrap; }
 
 // Project Page Specific
-.project-page {
-    article {
-        background-color: #fff;
-        // padding: 2rem; // Removed to use container padding + section padding
-        border-radius: $border-radius;
-        // box-shadow: $box-shadow; // Can be too much if every section has a shadow
-        margin-bottom: 2rem;
-
-        section { // Add padding to sections within the article if needed
-            padding: 1.5rem 0;
-            &:first-child { padding-top: 0; }
-            &:last-child { padding-bottom: 0; }
-        }
-    }
-    .project-header {
-        border-bottom: 1px solid #eee;
-        margin-bottom: 2rem;
-        padding-bottom: 1.5rem;
-        h1 { margin-bottom: 0.5rem; }
-        .subtitle {
-            font-size: 1.2rem;
-            color: $text-muted;
-            margin-top: -0.5rem;
-            margin-bottom: 1rem;
-        }
-    }
-    img.project-main-image {
-        margin-bottom: 2rem;
-        box-shadow: $box-shadow;
-    }
+.project-page article {
+    background-color: var(--card-background); border-radius: $border-radius;
+    margin-bottom: 2rem; transition: background-color 0.2s ease-in-out;
+    section { padding: 1.5rem 0; &:first-child{padding-top:0;} &:last-child{padding-bottom:0;} }
 }
+.project-header {
+    border-bottom: 1px solid var(--border-color); margin-bottom: 2rem; padding-bottom: 1.5rem;
+    transition: border-color 0.2s ease-in-out;
+    h1 { margin-bottom: 0.5rem; color: var(--secondary-color); }
+    .subtitle { font-size: 1.2rem; color: var(--text-muted); margin-top: -0.5rem; margin-bottom: 1rem; }
+}
+img.project-main-image { margin-bottom: 2rem; box-shadow: var(--card-shadow); }
 
 // Image Galleries and Plot Containers for Project Pages
 .project-image-gallery, .training-plots, .cam-examples {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-    justify-content: space-around;
-
+    display: flex; flex-wrap: wrap; gap: 20px;
+    margin-top: 1rem; margin-bottom: 1.5rem; justify-content: space-around;
     .gallery-column, .plot-container, .cam-container {
-        flex: 1;
-        text-align: center;
-        background-color: #fff; // Optional: card-like background for each item
-        padding: 15px;          // Optional
-        border-radius: $border-radius; // Optional
-        // box-shadow: 0 2px 5px rgba(0,0,0,0.08); // Optional
-
+        flex: 1; text-align: center; background-color: var(--card-background);
+        padding: 15px; border-radius: $border-radius;
+        // box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        // body.dark-mode & { box-shadow: 0 2px 5px rgba(0,0,0,0.15); }
+        transition: background-color 0.2s ease-in-out;
         img {
-            width: 100%;
-            border: 1px solid #eee;
-            border-radius: $border-radius;
-            margin-bottom: 10px;
-            // box-shadow: 0 2px 4px rgba(0,0,0,0.07); // Simpler shadow if not on container
+            width: 100%; border: 1px solid var(--border-color); border-radius: $border-radius;
+            margin-bottom: 10px; transition: border-color 0.2s ease-in-out;
         }
-        .column-title, h4 { // h4 is used in training-plots/cam-examples
-            font-weight: 600;
-            font-family: $font-secondary;
-            color: $secondary-color;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-        p { // Caption styling
-            font-size: 0.9em;
-            color: $text-muted;
-            margin-top: 5px;
-            margin-bottom: 0;
-        }
+        .column-title, h4 { font-weight: 600; font-family: $font-secondary; color: var(--secondary-color); margin-bottom: 10px; font-size: 1.1rem; }
+        p { font-size: 0.9em; color: var(--text-muted); margin-top: 5px; margin-bottom: 0; }
     }
-    .gallery-column {
-        min-width: 200px;
-        max-width: 280px;
-    }
-    .plot-container {
-        min-width: 300px;
-        max-width: 450px;
-    }
-    .cam-container {
-        min-width: 250px;
-        max-width: 350px;
-    }
+    .gallery-column { min-width: 200px; max-width: 280px; }
+    .plot-container { min-width: 300px; max-width: 450px; }
+    .cam-container { min-width: 250px; max-width: 350px; }
 }
-
 
 // Code Blocks Styling
-pre, code {
-    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-    font-size: 0.9em; // Slightly smaller
-    background-color: #f6f8fa;
-    border-radius: $border-radius;
+pre, code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 0.9em; background-color: var(--code-bg); border-radius: $border-radius; transition: background-color 0.2s ease-in-out;}
+pre { padding: 16px; overflow: auto; line-height: 1.45; border: 1px solid var(--code-border); margin-bottom: 1rem; transition: border-color 0.2s ease-in-out;
+    code { padding: 0; margin: 0; background-color: transparent; border: none; border-radius: 0; }
 }
-pre {
-    padding: 16px;
-    overflow: auto;
-    line-height: 1.45;
-    border: 1px solid #eaecef;
-    margin-bottom: 1rem; // Added margin
-    code { // Reset for code inside pre for full-width color
-        padding: 0;
-        margin: 0;
-        background-color: transparent;
-        border: none;
-        border-radius: 0;
-    }
+p > code, li > code, dd > code {
+    padding: .2em .4em; margin: 0 .2em; font-size: 85%;
+    background-color: var(--inline-code-bg); border-radius: 3px;
+    color: var(--text-color);
+    body.dark-mode & { color: var(--link-color); } // Brighter inline code in dark mode
 }
-// Inline code
-p > code, li > code, dd > code { // Target inline code more specifically
-    padding: .2em .4em;
-    margin: 0 .2em;
-    font-size: 85%; // Common practice for inline code
-    background-color: rgba($primary-color, 0.1); // Subtle background
-    border-radius: 3px;
-}
-
 
 // Contact Page
 .contact-form {
-    max-width: 600px;
-    margin: 2rem auto;
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: $border-radius;
-    box-shadow: $box-shadow;
-
-    label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
+    max-width: 600px; margin: 2rem auto; background-color: var(--card-background);
+    padding: 2rem; border-radius: $border-radius; box-shadow: var(--card-shadow);
+    transition: background-color 0.2s ease-in-out;
+    label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--secondary-color); }
+    input[type="text"], input[type="email"], textarea {
+        width: 100%; padding: 10px; margin-bottom: 1rem; border: 1px solid var(--border-color);
+        border-radius: $border-radius; font-family: $font-primary; font-size: 1rem;
+        background-color: var(--background-color); color: var(--text-color); // Use page bg for input fields
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
     }
-    input[type="text"],
-    input[type="email"],
-    textarea {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 1rem;
-        border: 1px solid #ddd;
-        border-radius: $border-radius;
-        font-family: $font-primary;
-        font-size: 1rem;
-    }
-    textarea {
-        min-height: 150px;
-        resize: vertical;
-    }
+    textarea { min-height: 150px; resize: vertical; }
     button[type="submit"] {
-        display: inline-block;
-        background-color: $primary-color;
-        color: #fff !important;
-        padding: 12px 25px;
-        border: none;
-        border-radius: $border-radius;
-        font-family: $font-secondary;
-        font-weight: 600;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
+        display: inline-block; background-color: var(--button-primary-bg); color: var(--button-primary-text) !important;
+        padding: 12px 25px; border: none; border-radius: $border-radius; font-family: $font-secondary;
+        font-weight: 600; cursor: pointer; text-decoration: none; transition: background-color 0.3s ease;
         &:hover {
-            // background-color: color.adjust($primary-color, $lightness: -10%); // New Sass
-            background-color: darken($primary-color, 10%); // Old syntax
-            color: #fff !important;
-            text-decoration: none;
+            background-color: var(--button-primary-hover-bg);
+            color: var(--button-primary-text) !important; text-decoration: none;
         }
     }
 }
-.contact-info {
-    text-align: center;
-    margin-bottom: 2rem;
-    p { margin-bottom: 0.5rem; }
-}
-
+.contact-info { text-align: center; margin-bottom: 2rem; p { margin-bottom: 0.5rem; } }
 
 // Scroll Reveal Animations
-.scroll-reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    will-change: opacity, transform; // Hint for browser optimization
-}
+.scroll-reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; will-change: opacity, transform; }
+.scroll-reveal.is-visible { opacity: 1; transform: translateY(0); }
 
-.scroll-reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-// Animations (General Fade-in, used on main container)
-.fade-in {
-    animation: fadeInAnimation 0.7s ease-in-out;
-}
-@keyframes fadeInAnimation {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+// Animations (General Fade-in)
+.fade-in { animation: fadeInAnimation 0.7s ease-in-out; }
+@keyframes fadeInAnimation { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 // Responsive
 @media (max-width: 768px) {
-    h1 { font-size: 2.2rem; }
-    h2 { font-size: 1.8rem; }
-    h3 { font-size: 1.5rem; }
-
+    h1 { font-size: 2.2rem; } h2 { font-size: 1.8rem; } h3 { font-size: 1.5rem; }
     .site-header {
         position: static;
-        .header-flex {
-            flex-direction: column;
-            align-items: center;
-        }
-        .logo {
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-        nav {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            width: 100%; // Make nav take full width
-            a {
-                margin: 5px 10px;
-                font-size: 0.9rem; // Slightly smaller nav links on mobile
-            }
+        .header-flex { flex-direction: column; align-items: center; }
+        .logo { margin-bottom: 1rem; text-align: center; }
+        nav { display: flex; flex-wrap: wrap; justify-content: center; width: 100%;
+            a { margin: 5px 10px; font-size: 0.9rem; }
+            .theme-toggle-button { margin-top: 10px; } // Ensure toggle button is spaced on mobile
         }
     }
-    .hero-section {
-        padding: 3rem 0;
-        h1 { font-size: 2.5rem; }
-        .hero-subtitle { font-size: 1.1rem; }
-    }
-
-    .project-grid {
-        grid-template-columns: 1fr; // Stack cards on mobile
-    }
-
+    .hero-section { padding: 3rem 0; h1 { font-size: 2.5rem; } .hero-subtitle { font-size: 1.1rem; } }
+    .project-grid { grid-template-columns: 1fr; }
     .project-image-gallery, .training-plots, .cam-examples {
-        .gallery-column, .plot-container, .cam-container {
-            min-width: 100%; // Full width for image/plot items on mobile
-            max-width: 100%;
-        }
+        .gallery-column, .plot-container, .cam-container { min-width: 100%; max-width: 100%; }
     }
 }

@@ -1,3 +1,4 @@
+<!-- _includes/header.html -->
 <header class="site-header">
     <div class="container header-flex">
         <div class="logo">
@@ -9,6 +10,10 @@
             <a href="{{ '/about.html' | relative_url }}">About</a>
             <a href="{{ '/projects.html' | relative_url }}">Projects</a>
             <a href="{{ '/contact.html' | relative_url }}">Contact</a>
+            <button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i> <!-- Default: Moon icon for light theme / initial state -->
+                <i class="fas fa-sun" style="display:none;"></i> <!-- Sun icon for dark theme, initially hidden -->
+            </button>
         </nav>
     </div>
 </header>
