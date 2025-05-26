@@ -163,8 +163,6 @@ Data from the SQL database would feed interactive Power BI dashboards for housin
 - **Strategic Planning:** Identifying trends, informing preventative maintenance strategies.
 - **Example DAX (Conceptual):**
   - `TotalHighRiskMouldProperties = CALCULATE(DISTINCTCOUNT(Properties[PropertyID]), Mould_Predictions[PredictionClass] = "Mould", Mould_Predictions[ConfidenceScore] > 0.90)`
-  <!-- - **Visual Concept:**
-  - (Embed a mockup image of the Power BI dashboard: `![Power BI Mockup](/assets/images/mould_project/powerbi_mockup.png)`). If no mockup, describe key visuals. -->
 
 ## Outcomes & Impact
 
